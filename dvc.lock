@@ -1,0 +1,84 @@
+schema: '2.0'
+stages:
+  make_dataset:
+    cmd: python .\src\data\make_dataset.py .\data\raw\raw_movies.csv .\data\raw\tmdb_5000_credits.csv
+    deps:
+    - path: .\data\raw\tmdb_5000_credits.csv
+      hash: md5
+      md5: 0349c8a784e867f395096db3f41b2b37
+      size: 40049097
+    - path: .\data\raw\tmdb_5000_movies.csv
+      hash: md5
+      md5: 64346a71897b5741d553d34b86088603
+      size: 5698602
+    - path: .\src\data\make_dataset.py
+      hash: md5
+      md5: e6eb29ffb4ec0cc10a97af4b226e3aaf
+      size: 901
+    outs:
+    - path: data/processed/processed_movies.csv
+      hash: md5
+      md5: 682961fcad490dcf5855b8698dd06382
+      size: 15137353
+    train_model:
+      cmd: python .\src\models\train_model.py .\data\processed\features_movies.csv
+      deps:
+      - path: .\data\processed\features_movies.csv
+        hash: md5
+        md5: cd96680853d39e15ea84ae62d42e5448
+        size: 525737
+      - path: .\src\models\train_model.py
+        hash: md5
+        md5: 99013f2dde77da133918ecb94e3f7f84
+        size: 1404
+      outs:
+      - path: models/movie_dict.pkl
+        hash: md5
+        md5: c9dc627f664dcdfe8641a4b31bb3f4df
+        size: 535748
+      - path: models/similarity.pkl
+        hash: md5
+        md5: 399925a1f91d9c4d83e34571c5cf13a6
+        size: 8000163
+  features_movies:
+    cmd: python .\src\features\build_features.py .\data\processed\processed_movies.csv
+    deps:
+    - path: .\data\processed\processed_movies.csv
+      hash: md5
+      md5: 682961fcad490dcf5855b8698dd06382
+      size: 15137353
+    - path: .\src\features\build_features.py
+      hash: md5
+      md5: 7c391567b9df5465002a66f77ac75142
+      size: 1734
+    outs:
+    - path: data/processed/features_movies.csv
+      hash: md5
+      md5: cd96680853d39e15ea84ae62d42e5448
+      size: 525737
+  predict_model:
+    cmd: python .\src\models\predict_model.py
+    deps:
+    - path: .\data\processed\features_movies.csv
+      hash: md5
+      md5: cd96680853d39e15ea84ae62d42e5448
+      size: 525737
+    - path: .\models\movie_dict.pkl
+      hash: md5
+      md5: c9dc627f664dcdfe8641a4b31bb3f4df
+      size: 535748
+    - path: .\models\similarity.pkl
+      hash: md5
+      md5: 399925a1f91d9c4d83e34571c5cf13a6
+      size: 8000163
+  visualize:
+    cmd: python .\src\visualization\visualize.py .\data\processed\features_movies.csv
+    deps:
+    - path: .\data\processed\features_movies.csv
+      hash: md5
+      md5: cd96680853d39e15ea84ae62d42e5448
+      size: 525737
+    - path: .\src\visualization\visualize.py
+      hash: md5
+      md5: ad23c3bcfd878c751086462b75612e22
+      size: 335

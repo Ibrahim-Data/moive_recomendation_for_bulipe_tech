@@ -7,7 +7,7 @@ from difflib import get_close_matches
 # Set page config for the tab title and emoji
 st.set_page_config(page_title="Movie Recommendation System 🎬", page_icon="🎬")
 
-# App Title and Creator Information
+st.title('Welcome To Ibrahim Creation ')
 st.title('🎬 Welcome To Ibrahim Creation ')
 st.image('moive.jpg')
 
@@ -27,16 +27,15 @@ def recommendation(movie):
     try:
         # Check for close matches in case of spelling mistakes
         close_matches = get_close_matches(movie, moives['title'], n=5, cutoff=0.6)
-        
+
         if not close_matches:
             st.error(f"Movie '{movie}' not found. Please try again.")
             return
-        
+
         # If close matches are found, use the closest one
         closest_match = close_matches[0]
         st.success(f"🎉 Great choice! We've found a close match for you: **{closest_match}** 🍿")
 
-        
         # Find index of the closest match
         movies_index = moives[moives['title'] == closest_match].index[0]
         distance = similarity[movies_index]
@@ -59,8 +58,8 @@ def recommendation(movie):
 st.title("Movie Recommendation System")
 
 # Load models and data
-model_path = r"E:\Work files\Movie Recommender System2\moive_R\movie_dict1.pkl2"
-similarity_path = r"E:\Work files\Movie Recommender System2\moive_R\similarity.pkl2"
+model_path = r"/mount/src/moive-recommender-system/models/movie_dict.pkl"
+similarity_path = r"/mount/src/moive-recommender-system/models/similarity1.pkl"
 
 with open(model_path, 'rb') as model_file:
     movies_dict = pickle.load(model_file)
@@ -68,6 +67,7 @@ moives = pd.DataFrame(movies_dict)
 
 with open(similarity_path, 'rb') as similarity_file:
     similarity = pickle.load(similarity_file)
+
 
 # User input: both selectbox and text input
 selected_movie_name = st.selectbox(

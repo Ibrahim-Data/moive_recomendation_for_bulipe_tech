@@ -58,8 +58,8 @@ def recommendation(movie):
 st.title("Movie Recommendation System")
 
 # Load models and data
-model_path = r"/mount/src/moive-recommender-system/models/movie_dict.pkl"
-similarity_path = r"/mount/src/moive-recommender-system/models/similarity1.pkl"
+model_path = r"/mount/src/moive-recommender-system/models/movie_dict1.pkl"
+similarity_path = r"/mount/src/moive-recommender-system/models/similarity.pkl"
 
 with open(model_path, 'rb') as model_file:
     movies_dict = pickle.load(model_file)

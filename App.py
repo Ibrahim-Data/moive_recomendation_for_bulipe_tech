@@ -7,8 +7,7 @@ from difflib import get_close_matches
 # Set page config for the tab title and emoji
 st.set_page_config(page_title="Movie Recommendation System 🎬", page_icon="🎬")
 
-st.title('Welcome To Ibrahim Creation ')
-st.title('🎬 Welcome To Ibrahim Creation ')
+st.title(' Welcome To Ibrahim Creation 🎬')
 st.image('moive.jpg')
 
 # Function to fetch poster from the movie API

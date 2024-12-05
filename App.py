@@ -92,57 +92,55 @@ movie_input = st.text_input("Search for a movie:", placeholder="Type a movie nam
 if not movie_input:
     movie_input = st.selectbox("Or select a movie from the list:", moives['title'].values)
 
+# Show Recommendations Button
 if st.button('Show Recommendations'):
-    if movie_input:
-        posters, titles = recommendation(movie_input)
-        if titles:
-            # Begin flexbox container
+    if final_movie_name:
+        recommended_movie_posters, recommended_movie_titles = recommendation(final_movie_name)
+
+        if recommended_movie_titles:
+            # Create a styled container using HTML and CSS
             st.markdown("""
-                <div class="movie-container">
+                <style>
+                    .movie-container {
+                        display: flex;
+                        justify-content: space-between; /* Space evenly between columns */
+                        gap: 15px; /* Add space between cards */
+                        margin-top: 20px;
+                    }
+                    .movie-box {
+                        text-align: center; /* Center-align text inside the box */
+                        width: 100%; /* Ensure full width of the column */
+                        border: 2px solid #ddd; /* Add a border around each card */
+                        padding: 10px; /* Add padding inside each card */
+                        border-radius: 10px; /* Add rounded corners */
+                        background: #fff; /* White background for the card */
+                        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Light shadow for a modern look */
+                    }
+                    .movie-box img {
+                        max-width: 100%; /* Ensure the image fits the container */
+                        height: auto; /* Maintain the aspect ratio */
+                        border-radius: 10px; /* Round the image corners */
+                    }
+                    .movie-title {
+                        font-size: 16px; /* Make the movie title slightly larger */
+                        font-weight: bold; /* Bold the title */
+                        margin-top: 10px; /* Space between the image and the title */
+                        color: #333; /* Dark color for readability */
+                    }
+                </style>
             """, unsafe_allow_html=True)
-            for poster, title in zip(posters, titles):
-                # Add individual movie boxes inside the container
+
+            # Start the container div
+            st.markdown('<div class="movie-container">', unsafe_allow_html=True)
+
+            # Create columns dynamically
+            for poster, title in zip(recommended_movie_posters, recommended_movie_titles):
                 st.markdown(f"""
                     <div class="movie-box">
-                        <img src="{poster}" style="border-radius: 10px; width: 100%; height: auto;" />
+                        <img src="{poster}" alt="{title}" />
                         <p class="movie-title">{title}</p>
                     </div>
                 """, unsafe_allow_html=True)
-            # End flexbox container
-            st.markdown("</div>", unsafe_allow_html=True)
 
-# Custom CSS for proper styling
-st.markdown("""
-    <style>
-        .movie-container {
-            display: flex; /* Use flexbox for horizontal alignment */
-            justify-content: space-around; /* Evenly distribute movie cards */
-            flex-wrap: wrap; /* Allow wrapping if the screen width is too small */
-            gap: 20px; /* Space between movie cards */
-            margin-top: 20px; /* Add some space above the container */
-        }
-        .movie-box {
-            text-align: center; /* Center-align text inside the box */
-            width: 200px; /* Fixed width for consistent sizing */
-            border: 1px solid #ddd; /* Add a border around the box */
-            padding: 10px; /* Space inside the box */
-            border-radius: 10px; /* Rounded corners for a better look */
-            background: #fff; /* White background */
-            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Add shadow for a modern look */
-        }
-        .movie-title {
-            font-size: 14px; /* Make the movie title readable */
-            font-weight: bold; /* Emphasize the title */
-            margin-top: 10px; /* Space between the image and title */
-            color: #333; /* Dark text color */
-        }
-        img {
-            max-width: 100%; /* Make images responsive */
-            height: auto; /* Maintain aspect ratio */
-            border-radius: 10px; /* Round the image corners */
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-
-
+            # End the container div
+            st.markdown('</div>', unsafe_allow_html=True)

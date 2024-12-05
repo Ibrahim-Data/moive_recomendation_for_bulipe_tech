@@ -97,9 +97,11 @@ if st.button('Show Recommendations'):
         posters, titles = recommendation(movie_input)
         if titles:
             # Begin flexbox container
-            st.markdown('<div class="movie-container">', unsafe_allow_html=True)
+            st.markdown("""
+                <div class="movie-container">
+            """, unsafe_allow_html=True)
             for poster, title in zip(posters, titles):
-                # Add individual movie boxes
+                # Add individual movie boxes inside the container
                 st.markdown(f"""
                     <div class="movie-box">
                         <img src="{poster}" style="border-radius: 10px; width: 100%; height: auto;" />
@@ -107,6 +109,40 @@ if st.button('Show Recommendations'):
                     </div>
                 """, unsafe_allow_html=True)
             # End flexbox container
-            st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
+
+# Custom CSS for proper styling
+st.markdown("""
+    <style>
+        .movie-container {
+            display: flex; /* Use flexbox for horizontal alignment */
+            justify-content: space-around; /* Evenly distribute movie cards */
+            flex-wrap: wrap; /* Allow wrapping if the screen width is too small */
+            gap: 20px; /* Space between movie cards */
+            margin-top: 20px; /* Add some space above the container */
+        }
+        .movie-box {
+            text-align: center; /* Center-align text inside the box */
+            width: 200px; /* Fixed width for consistent sizing */
+            border: 1px solid #ddd; /* Add a border around the box */
+            padding: 10px; /* Space inside the box */
+            border-radius: 10px; /* Rounded corners for a better look */
+            background: #fff; /* White background */
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Add shadow for a modern look */
+        }
+        .movie-title {
+            font-size: 14px; /* Make the movie title readable */
+            font-weight: bold; /* Emphasize the title */
+            margin-top: 10px; /* Space between the image and title */
+            color: #333; /* Dark text color */
+        }
+        img {
+            max-width: 100%; /* Make images responsive */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 10px; /* Round the image corners */
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 
 

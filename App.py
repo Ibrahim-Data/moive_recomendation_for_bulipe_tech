@@ -51,7 +51,7 @@ st.markdown("""
 st.markdown("<h1 class='title'>Welcome to Ibrahim's Movie Recommender 🎬</h1>", unsafe_allow_html=True)
 
 # Display header image
-st.image("moive.jpg", use_column_width=True)
+st.image("moive.jpg")
 
 # Function to fetch poster from the movie API
 def fetch_poster(movie_id):
@@ -87,8 +87,8 @@ def recommendation(movie):
     return recommended_movie_posters, recommended_movie_titles
 
 # Load models and data
-model_path = "movie_dict1.pkl"
-similarity_path = "similarity.pkl"
+model_path = r"/mount/src/moive-recommender-system/models/movie_dict1.pkl"
+similarity_path = r"/mount/src/moive-recommender-system/models/similarity.pkl"
 
 with open(model_path, 'rb') as model_file:
     movies_dict = pickle.load(model_file)

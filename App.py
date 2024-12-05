@@ -52,7 +52,7 @@ st.markdown("<h1 class='title'>Welcome to Ibrahim's Movie Recommender 🎬</h1>"
 
 # Display header image
 # Display header image with adjusted size
-st.image("moive.jpg", use_column_width=False, width=500)  # Adjust 'width' as needed
+st.image("moive.jpg", use_column_width=False, width=200)  # Adjust 'width' as needed
 
 # Function to fetch poster from the movie API
 def fetch_poster(movie_id):

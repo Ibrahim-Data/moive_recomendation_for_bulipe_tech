@@ -102,6 +102,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+
 st.markdown("<h1 class='title'>Welcome to Ibrahim's Movie Recommender 🎬</h1>", unsafe_allow_html=True)
 
 

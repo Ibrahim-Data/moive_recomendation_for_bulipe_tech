@@ -11,6 +11,7 @@ st.set_page_config(
     layout="wide",
 )
 
+# Custom CSS styling
 st.markdown("""
     <style>
     /* General Styling */
@@ -102,10 +103,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-
 st.markdown("<h1 class='title'>Welcome to Ibrahim's Movie Recommender 🎬</h1>", unsafe_allow_html=True)
-
-
 
 # Function to fetch poster from the movie API
 def fetch_poster(movie_id):
@@ -171,4 +169,3 @@ if movie_input != "Type or select a movie" and st.button('Show Recommendations')
                 if idx < len(recommended_movie_titles):
                     st.markdown(f"<div class='movie-name'>{recommended_movie_titles[idx]}</div>", unsafe_allow_html=True)
                     st.image(recommended_movie_posters[idx], use_column_width=True)
-

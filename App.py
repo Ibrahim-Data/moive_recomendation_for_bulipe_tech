@@ -107,17 +107,20 @@ movie_input = st.text_input("Search for a movie:", placeholder="Type a movie nam
 if not movie_input:
     movie_input = st.selectbox("Or select a movie from the list:", moives['title'].values)
 
-# Show Recommendations Button
 if st.button('Show Recommendations'):
     if movie_input:
         posters, titles = recommendation(movie_input)
         if titles:
+            # Begin flexbox container
             st.markdown('<div class="movie-container">', unsafe_allow_html=True)
             for poster, title in zip(posters, titles):
+                # Add individual movie boxes
                 st.markdown(f"""
                     <div class="movie-box">
-                        <img src="{poster}" alt="{title}" />
+                        <img src="{poster}" style="border-radius: 10px; width: 100%; height: auto;" />
                         <p class="movie-title">{title}</p>
                     </div>
                 """, unsafe_allow_html=True)
+            # End flexbox container
             st.markdown('</div>', unsafe_allow_html=True)
+

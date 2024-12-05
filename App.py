@@ -7,49 +7,34 @@ from difflib import get_close_matches
 # Set page config for the tab title and emoji
 st.set_page_config(page_title="Movie Recommendation System 🎬", page_icon="🎬")
 
-# Add custom HTML and CSS
 st.markdown("""
     <style>
-        body {
-            background-color: #f5f5f5;
-        }
-        .stButton>button {
-            background-color: #ff4b4b;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .stButton>button:hover {
-            background-color: #ff1c1c;
-        }
         .movie-container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
+            justify-content: space-evenly; /* Even spacing between movies */
+            align-items: flex-start; /* Align items to the top */
+            flex-wrap: wrap; /* Allow wrapping if the screen is small */
+            gap: 20px; /* Add spacing between items */
             margin-top: 20px;
         }
         .movie-box {
             text-align: center;
-            width: 18%;
+            width: 18%; /* Set fixed width for consistent appearance */
             border: 2px solid #ddd;
             padding: 10px;
             border-radius: 10px;
             background: #fff;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
         }
-        .movie-box img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
         .movie-title {
             font-size: 14px;
             font-weight: bold;
             margin-top: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -123,4 +108,5 @@ if st.button('Show Recommendations'):
                 """, unsafe_allow_html=True)
             # End flexbox container
             st.markdown('</div>', unsafe_allow_html=True)
+
 

@@ -103,7 +103,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown("<h1 class='title'>Welcome to Ibrahim's Movie Recommender 🎬</h1>", unsafe_allow_html=True)
+st.markdown("<h2 class='title'>Welcome to Ibrahim's Movie Recommender 🎬</h2>", unsafe_allow_html=True)
 
 # Function to fetch poster from the movie API
 def fetch_poster(movie_id):
@@ -150,7 +150,7 @@ with open(similarity_path, 'rb') as similarity_file:
     similarity = pickle.load(similarity_file)
 
 # Movie Recommendation System Section
-st.markdown("<h2 class='recommend-title'>Find Your Next Favorite Movie 🍿</h2>", unsafe_allow_html=True)
+st.markdown("<h3 class='recommend-title'>Find Your Next Favorite Movie 🍿</h3>", unsafe_allow_html=True)
 
 # User input: unified input box with dropdown and text search
 movie_input = st.selectbox(

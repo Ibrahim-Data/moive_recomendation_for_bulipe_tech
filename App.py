@@ -27,7 +27,9 @@ st.markdown("""
         }
         .movie-container {
             display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
             margin-top: 20px;
         }
         .movie-box {
@@ -39,9 +41,15 @@ st.markdown("""
             background: #fff;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
         }
+        .movie-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
         .movie-title {
             font-size: 14px;
             font-weight: bold;
+            margin-top: 10px;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -108,9 +116,8 @@ if st.button('Show Recommendations'):
             for poster, title in zip(posters, titles):
                 st.markdown(f"""
                     <div class="movie-box">
-                        <img src="{poster}" width="100%" style="border-radius: 10px;" />
+                        <img src="{poster}" alt="{title}" />
                         <p class="movie-title">{title}</p>
                     </div>
                 """, unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
-

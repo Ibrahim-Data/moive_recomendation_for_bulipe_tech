@@ -8,7 +8,7 @@ import base64
 # Set page configuration
 st.set_page_config(
     page_title="Movie Recommendation System For Builip Tech🎬",
-    page_icon="🎬",
+    page_icon="images/logo.png",
     layout="wide",
 )
 def set_custom_style(background_image_path):

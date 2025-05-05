@@ -3,14 +3,80 @@ import pandas as pd
 import pickle
 import requests
 from difflib import get_close_matches
+import base64
 
 # Set page configuration
 st.set_page_config(
-    page_title="Movie Recommendation System 🎬",
+    page_title="Movie Recommendation System For Builip Tech🎬",
     page_icon="🎬",
     layout="wide",
 )
+def set_custom_style(background_image_path):
+    with open(background_image_path, "rb") as image:
+        encoded = base64.b64encode(image.read()).decode()
+    css = f"""
+    <style>
+    .stApp {{
+        background-image: url("data:image/png;base64,{encoded}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }}
 
+
+
+    .stSidebar .sidebar-content {{
+        background-color: rgba(255, 255, 255, 0.8) !important;
+        backdrop-filter: blur(5px);
+        padding: 1rem;
+        border-radius: 10px;
+    }}
+
+    .main .block-container {{
+        padding: 2rem;
+    }}
+
+    [data-testid="stMetricLabel"] {{
+        color: black !important;
+        font-size: 0.9rem !important;
+        font-weight: 500 !important;
+    }}
+
+    [data-testid="stMetricValue"] {{
+        color: black !important;
+        font-size: 2rem !important;
+        font-weight: 600 !important;
+    }}
+
+    [data-testid="stMetricDelta"] {{
+        color: black !important;
+        font-size: 0.9rem !important;
+        font-weight: 500 !important;
+    }}
+
+    .js-plotly-plot .plotly .gtitle, 
+    .js-plotly-plot .plotly .xtitle,
+    .js-plotly-plot .plotly .ytitle,
+    .js-plotly-plot .plotly .xtick text,
+    .js-plotly-plot .plotly .ytick text {{
+        color: black !important;
+        fill: black !important;
+    }}
+
+    .stSelectbox label, 
+    .stMultiSelect label,
+    .stSelectbox span,
+    .stMultiSelect span {{
+        color: black !important;
+    }}
+    [data-testid="column"] {{
+        padding: 0.5rem !important;
+    }}
+
+    </style>
+    """
+    st.markdown(css, unsafe_allow_html=True)
 # Custom CSS styling
 st.markdown("""
     <style>
@@ -103,8 +169,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown("<h2 class='title'>Welcome to Ibrahim's Movie Recommender 🎬</h2>", unsafe_allow_html=True)
-
+st.markdown("<h2 class='title' style='color: white;'>Welcome to bulipe tech Movie Recommender 🎬</h2>", unsafe_allow_html=True)
 # Function to fetch poster from the movie API
 def fetch_poster(movie_id):
     url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key=8265bd1679663a7ea12ac168da84d2e8&language=en-US"
@@ -139,8 +204,8 @@ def recommendation(movie):
     return recommended_movie_posters, recommended_movie_titles
 
 # Load models and data
-model_path = r"/mount/src/moive-recommender-system/models/movie_dict1.pkl"
-similarity_path = r"/mount/src/moive-recommender-system/models/similarity.pkl"
+model_path = r"models/movie_dict1.pkl"
+similarity_path = r"models/similarity.pkl"
 
 with open(model_path, 'rb') as model_file:
     movies_dict = pickle.load(model_file)
@@ -150,14 +215,30 @@ with open(similarity_path, 'rb') as similarity_file:
     similarity = pickle.load(similarity_file)
 
 # Movie Recommendation System Section
-st.markdown("<h3 class='recommend-title'>Find Your Next Favorite Movie 🍿</h3>", unsafe_allow_html=True)
+st.markdown("<h3 class='recommend-title' style='color: white;'>Find Your Next Favorite Movie  and stay with bulipe tech🍿</h3>", unsafe_allow_html=True)
 
-# User input: unified input box with dropdown and text search
+# Inject custom CSS to make label white
+st.markdown("""
+    <style>
+    .white-label {
+        color: white !important;
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# Render label separately
+st.markdown('<div class="white-label">Search or Select a Movie:</div>', unsafe_allow_html=True)
+
+# Render selectbox without label
 movie_input = st.selectbox(
-    'Search or Select a Movie:',
+    '',
     options=["Type or select a movie"] + list(moives['title'].values)
 )
 
+set_custom_style("images/backgound_image.jpg")
 # Check if a movie is selected or typed
 if movie_input != "Type or select a movie" and st.button('Show Recommendations'):
     recommended_movie_posters, recommended_movie_titles = recommendation(movie_input)
@@ -168,4 +249,4 @@ if movie_input != "Type or select a movie" and st.button('Show Recommendations')
             with col:
                 if idx < len(recommended_movie_titles):
                     st.markdown(f"<div class='movie-name'>{recommended_movie_titles[idx]}</div>", unsafe_allow_html=True)
-                    st.image(recommended_movie_posters[idx], use_column_width=True)
+                    st.image(recommended_movie_posters[idx],)

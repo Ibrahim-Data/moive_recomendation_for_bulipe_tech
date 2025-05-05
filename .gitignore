@@ -10,11 +10,6 @@ env/
 models/
 *.pkl
 
-# Ignore image files
-images/
-*.png
-*.jpg
-*.jpeg
 
 # Ignore Streamlit config files
 .streamlit/
